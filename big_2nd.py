@@ -14,6 +14,7 @@ test = pd.read_csv("X_test.csv", encoding= 'cp949')
 
 pd.set_option('display.max_columns',None)
 pd.set_option('display.max_rows',None)
+pd.options.display.float_format = '{:.5f}'.format
 
 # 사용자 코딩
 ############EDA####################
@@ -44,9 +45,9 @@ test= test[(test['총구매액']>0) & (test['최대구매액']>0)]
 
 train= train[train['총구매액']>=train['최대구매액']]
 test= test[test['총구매액']>=test['최대구매액']]
-print('총<최대 제거 train shape', train.shape)  # 3430 (-60)
-print('총<최대 제거 test shape', test.shape)    # 2438 (-35)
-print('\n\n')
+# print('총<최대 제거 train shape', train.shape)  # 3430 (-60)
+# print('총<최대 제거 test shape', test.shape)    # 2438 (-35)
+# print('\n\n')
 
 
 ##########보류############
@@ -73,20 +74,22 @@ test['환불금액']= test['환불금액'].fillna(0).astype(int)
 
 # 주구매상품, 주구매지점 라벨 인코딩
 import sklearn.preprocessing
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 # print(help(LabelEncoder))
-encoder_mer= LabelEncoder()
-print(train['주구매상품'].nunique())
-print(train['주구매지점'].nunique())
-print(test['주구매상품'].nunique())
-print(test['주구매지점'].nunique())
+# print(train['주구매상품'].nunique())
+# print(train['주구매지점'].nunique())
+# print(test['주구매상품'].nunique())
+# print(test['주구매지점'].nunique())
 
-train['주구매상품']= encoder_mer.fit_transform(train['주구매상품'])
-test['주구매상품']= encoder_mer.transform(test['주구매상품'])
+# print(type(train[['주구매상품']]))
 
-encoder_store= LabelEncoder()
-train['주구매지점']= encoder_store.fit_transform(train['주구매지점'])
-test['주구매지점']= encoder_store.transform(test['주구매지점'])
+encoder_mer= OrdinalEncoder()
+train['주구매상품']= encoder_mer.fit_transform(train[['주구매상품']])
+test['주구매상품']= encoder_mer.transform(test[['주구매상품']])
+
+encoder_store= OrdinalEncoder()
+train['주구매지점']= encoder_store.fit_transform(train[['주구매지점']])
+test['주구매지점']= encoder_store.transform(test[['주구매지점']])
 
 
 
@@ -99,6 +102,8 @@ test['주구매지점']= encoder_store.transform(test['주구매지점'])
 # 총구매액, 최대구매액, 환불금액 스케일링
 from sklearn.preprocessing import MinMaxScaler
 
+# print('before',train[['총구매액','최대구매액','환불금액']].describe())
+
 scaler= MinMaxScaler()
 train['총구매액']= scaler.fit_transform(train[['총구매액']])
 test['총구매액']= scaler.transform(test[['총구매액']])
@@ -109,7 +114,7 @@ test['최대구매액']= scaler.transform(test[['최대구매액']])
 train['환불금액']= scaler.fit_transform(train[['환불금액']])
 test['환불금액']= scaler.transform(test[['환불금액']])
 
-# print(train[['총구매액','최대구매액','환불금액']].describe())
+# print('after', train[['총구매액','최대구매액','환불금액']].describe())
 
 
 
@@ -129,26 +134,29 @@ from sklearn.tree import ExtraTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 # print(help(sklearn.svm))
-model= DecisionTreeClassifier(random_state= 42) # 58% # 스케일링 58%
+# model= DecisionTreeClassifier(random_state= 42) # 58% # 스케일링 58%
 """
 > 0.5814285714285714
 [0.1624447  0.11095861 0.11963861 0.08550953 0.10239238 0.08012055
  0.05723865 0.12263077 0.09835427 0.06071194]
 
 """
-# model= RandomForestClassifier(random_state= 42) # 61% # 스케일링 62%
+model= RandomForestClassifier(random_state= 42) # 61% # 스케일링 62% # ordinal 인코딩
 # model= ExtraTreeClassifier(random_state= 42) # 54% # 스케일링 54%
 # model= SVC(random_state= 42) # 61% # 스케일링 61%
 
-# model.fit(train_x, train_y)
-# score= model.score(test_x, test_y)
-# print(score)
+print(model)
+model.fit(train_x, train_y)
+score= model.score(test_x, test_y)
+print(score)
 
 # print(model.feature_importances_.flatten())
 
-
-
-
+result= model.predict(test)
+# print(result)
+test['성별']= result
+# print(test.info())
+test.to_csv("result.csv", index=False)
 
 
 
