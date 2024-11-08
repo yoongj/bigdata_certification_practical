@@ -5,6 +5,7 @@
 # 파일 경로 상 내부 드라이브 경로(C: 등) 접근 불가
 
 import pandas as pd
+import numpy as np
 
 train = pd.read_csv("train.csv", encoding= 'UTF8')
 test = pd.read_csv("X_test.csv", encoding= 'cp949')
@@ -69,12 +70,12 @@ train['환불금액']= train['환불금액'].fillna(0).astype(int)
 test['환불금액']= test['환불금액'].fillna(0).astype(int)
 # print(train[train['환불금액']>=0])
 # print(test[test['환불금액']>=0])
-# print(train.info())
+# print(train.head())
 # print(test.info())
 
 # 주구매상품, 주구매지점 라벨 인코딩
 import sklearn.preprocessing
-from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, OneHotEncoder
 # print(help(LabelEncoder))
 # print(train['주구매상품'].nunique())
 # print(train['주구매지점'].nunique())
@@ -83,14 +84,42 @@ from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 
 # print(type(train[['주구매상품']]))
 
-encoder_mer= OrdinalEncoder()
-train['주구매상품']= encoder_mer.fit_transform(train[['주구매상품']])
-test['주구매상품']= encoder_mer.transform(test[['주구매상품']])
+# LabelEncoder > OrdinalEncoder
+# encoder_mer= OrdinalEncoder()
+# train['주구매상품']= encoder_mer.fit_transform(train[['주구매상품']])
+# test['주구매상품']= encoder_mer.transform(test[['주구매상품']])
+# encoder_store= OrdinalEncoder()
+# train['주구매지점']= encoder_store.fit_transform(train[['주구매지점']])
+# test['주구매지점']= encoder_store.transform(test[['주구매지점']])
 
-encoder_store= OrdinalEncoder()
-train['주구매지점']= encoder_store.fit_transform(train[['주구매지점']])
-test['주구매지점']= encoder_store.transform(test[['주구매지점']])
 
+encoder_mer= OneHotEncoder(sparse_output = False)
+train_mer= pd.DataFrame(encoder_mer.fit_transform(train[['주구매상품']]), columns= train['주구매상품'].unique())
+test_mer= pd.DataFrame(encoder_mer.transform(test[['주구매상품']]), columns= train['주구매상품'].unique())
+# print('********train_mer*********',train_mer.head())
+train= pd.concat([train, train_mer], axis= 1)
+test= pd.concat([test, test_mer], axis= 1)
+# print(train.head())
+
+encoder_store= OneHotEncoder(sparse_output = False)
+train_store= pd.DataFrame(encoder_store.fit_transform(train[['주구매지점']]), columns= train['주구매지점'].unique())
+test_store= pd.DataFrame(encoder_store.transform(test[['주구매지점']]), columns= train['주구매지점'].unique())
+train= pd.concat([train, train_store], axis= 1)
+test= pd.concat([test, test_store], axis= 1)
+
+train.drop(columns= ['주구매상품', '주구매지점'], inplace= True)
+test.drop(columns= ['주구매상품', '주구매지점'], inplace= True)
+
+print(train.head())
+print(test.head())
+
+
+# # OneHotEncoder > get_dummies
+# print(train.info())
+# # encoder_mer= OneHotEncoder(sparse_output= False)
+# train= pd.get_dummies(train, columns= ['주구매상품'], dtype= int)
+# # print(train.info())
+# print(train.head())
 
 
 # print(train.describe())
@@ -99,22 +128,22 @@ test['주구매지점']= encoder_store.transform(test[['주구매지점']])
 
 
 
-# 총구매액, 최대구매액, 환불금액 스케일링
-from sklearn.preprocessing import MinMaxScaler
+# # 총구매액, 최대구매액, 환불금액 스케일링
+# from sklearn.preprocessing import MinMaxScaler
 
-# print('before',train[['총구매액','최대구매액','환불금액']].describe())
+# # print('before',train[['총구매액','최대구매액','환불금액']].describe())
 
-scaler= MinMaxScaler()
-train['총구매액']= scaler.fit_transform(train[['총구매액']])
-test['총구매액']= scaler.transform(test[['총구매액']])
+# scaler= MinMaxScaler()
+# train['총구매액']= scaler.fit_transform(train[['총구매액']])
+# test['총구매액']= scaler.transform(test[['총구매액']])
 
-train['최대구매액']= scaler.fit_transform(train[['최대구매액']])
-test['최대구매액']= scaler.transform(test[['최대구매액']])
+# train['최대구매액']= scaler.fit_transform(train[['최대구매액']])
+# test['최대구매액']= scaler.transform(test[['최대구매액']])
 
-train['환불금액']= scaler.fit_transform(train[['환불금액']])
-test['환불금액']= scaler.transform(test[['환불금액']])
+# train['환불금액']= scaler.fit_transform(train[['환불금액']])
+# test['환불금액']= scaler.transform(test[['환불금액']])
 
-# print('after', train[['총구매액','최대구매액','환불금액']].describe())
+# # print('after', train[['총구매액','최대구매액','환불금액']].describe())
 
 
 
