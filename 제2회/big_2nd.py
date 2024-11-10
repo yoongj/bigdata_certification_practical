@@ -20,6 +20,7 @@ pd.options.display.float_format = '{:.5f}'.format
 # 사용자 코딩
 ############EDA####################
 # print(train.info())
+# print(train['주구매지점'].unique())
 # print(train['환불금액'].head(50))
 # print('총구매액',sorted(train['총구매액'])[:20])
 # print('최대구매액',sorted(train['최대구매액'])[:20])
@@ -71,7 +72,9 @@ test['환불금액']= test['환불금액'].fillna(0).astype(int)
 # print(train[train['환불금액']>=0])
 # print(test[test['환불금액']>=0])
 # print(train.head())
+# print(train.info())
 # print(test.info())
+
 
 # 주구매상품, 주구매지점 라벨 인코딩
 import sklearn.preprocessing
@@ -81,10 +84,12 @@ from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, OneHotEncoder
 # print(train['주구매지점'].nunique())
 # print(test['주구매상품'].nunique())
 # print(test['주구매지점'].nunique())
+# print(train['주구매지점'].value_counts())
+
 
 # print(type(train[['주구매상품']]))
 
-# LabelEncoder > OrdinalEncoder
+# LabelEncoder => OrdinalEncoder
 # encoder_mer= OrdinalEncoder()
 # train['주구매상품']= encoder_mer.fit_transform(train[['주구매상품']])
 # test['주구매상품']= encoder_mer.transform(test[['주구매상품']])
@@ -92,34 +97,39 @@ from sklearn.preprocessing import LabelEncoder, OrdinalEncoder, OneHotEncoder
 # train['주구매지점']= encoder_store.fit_transform(train[['주구매지점']])
 # test['주구매지점']= encoder_store.transform(test[['주구매지점']])
 
-
-encoder_mer= OneHotEncoder(sparse_output = False)
+# print(train.info())
+# print(test.info())
+encoder_mer= OneHotEncoder(sparse_output = False, handle_unknown='ignore')
 train_mer= pd.DataFrame(encoder_mer.fit_transform(train[['주구매상품']]), columns= train['주구매상품'].unique())
 test_mer= pd.DataFrame(encoder_mer.transform(test[['주구매상품']]), columns= train['주구매상품'].unique())
-# print('********train_mer*********',train_mer.head())
+# print('********train_mer*********',train_mer.info())
 train= pd.concat([train, train_mer], axis= 1)
 test= pd.concat([test, test_mer], axis= 1)
 # print(train.head())
 
-encoder_store= OneHotEncoder(sparse_output = False)
+encoder_store= OneHotEncoder(sparse_output = False, handle_unknown='ignore')
 train_store= pd.DataFrame(encoder_store.fit_transform(train[['주구매지점']]), columns= train['주구매지점'].unique())
 test_store= pd.DataFrame(encoder_store.transform(test[['주구매지점']]), columns= train['주구매지점'].unique())
 train= pd.concat([train, train_store], axis= 1)
 test= pd.concat([test, test_store], axis= 1)
 
+
 train.drop(columns= ['주구매상품', '주구매지점'], inplace= True)
 test.drop(columns= ['주구매상품', '주구매지점'], inplace= True)
 
-print(train.head())
-print(test.head())
+# print(train.head())
+# print(test.head())
 
 
-# # OneHotEncoder > get_dummies
+# # OneHotEncoder => get_dummies
 # print(train.info())
 # # encoder_mer= OneHotEncoder(sparse_output= False)
 # train= pd.get_dummies(train, columns= ['주구매상품'], dtype= int)
-# # print(train.info())
-# print(train.head())
+
+train= train.iloc[:,:-1]
+test= test.iloc[:,:-1]
+print(train.info())
+# print(test.info())
 
 
 # print(train.describe())
