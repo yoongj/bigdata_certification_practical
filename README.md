@@ -4,7 +4,7 @@
 
 ## 실기체험
 <details>
-    <summary> </summary>
+    <summary><h2>실기체험</h2></summary>
 
 ### ♠ big_2nd.py
 #### EDA
