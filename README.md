@@ -5,7 +5,7 @@
 
 <details>
     <summary><h2>실기체험</h2></summary>
-    - - -
+- - -
 
 ### ♠ big_2nd.py
 #### EDA
