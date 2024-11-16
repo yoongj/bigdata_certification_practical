@@ -2,7 +2,7 @@
 빅데이터 분석기사 실기
 
 
-
+## 
 <details>
     <summary><h2><U>실기체험</U></h2></summary>
 
@@ -67,7 +67,10 @@
 </details>
 
 
-## 실시_2회
+## 
+<details>
+    <summary><h2><U>실시_2회</U></h2></summary>
+
 ### ♠ 작업형1.py
 - 1) 데이터 프레임 정렬
     - df.sort_value(by= '열이름', ascending= 오름차순)
