@@ -1,8 +1,8 @@
 # bigdata_certification_practical
 빅데이터 분석기사 실기
 
+## 실기체험
 <details>
-    <summary>## 실기체험</summary>
 
 ### ♠ big_2nd.py
 #### EDA
