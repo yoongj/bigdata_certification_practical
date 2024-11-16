@@ -2,7 +2,7 @@
 빅데이터 분석기사 실기
 
 ## 실기체험
-### * big_2nd.py
+### ♠ big_2nd.py
 #### EDA
 - 데이터 로드 (3500, 11), (2482, 10)
 - pandas set option
@@ -20,7 +20,7 @@
 - ET
 - SVM
 
-### * big_2nd_q2.py
+### ♠ big_2nd_q2.py
 : big_2nd.py 다시
 - 데이터 로드
 - 결측치 대체 (0)
@@ -32,8 +32,8 @@
 - 결과 저장
 
 
-### * q_3.py
-- 제 3유형
+### ♠ q_3.py
+- 제 3유형  
 ![image](https://github.com/user-attachments/assets/738523fa-1d86-4985-88e0-d8232d6aeccd)
 - 1) 카이제곱 통계량
     - scipy.stats.chi2_contingency
@@ -63,7 +63,7 @@
 
 
 ## 실시_2회
-### * 작업형1.py
+### ♠ 작업형1.py
 - 1) 데이터 프레임 정렬
     - df.sort_value(by= '열이름', ascending= 오름차순)
     - df.sort_index
