@@ -2,9 +2,10 @@
 빅데이터 분석기사 실기
 
 
-## 실기체험
+
 <details>
     <summary><h2>실기체험</h2></summary>
+    ---
 
 ### ♠ big_2nd.py
 #### EDA
