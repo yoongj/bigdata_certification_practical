@@ -2,11 +2,11 @@
 빅데이터 분석기사 실기
 
 
-## 
+
 <details>
-    <summary><h2><U>실기체험</U></h2></summary>
+    <summary><h2>실기체험</h2></summary>
 
-
+## 
 ### ♠ big_2nd.py
 #### EDA
 - 데이터 로드 (3500, 11), (2482, 10)
@@ -67,10 +67,11 @@
 </details>
 
 
-## 
-<details>
-    <summary><h2><U>실시_2회</U></h2></summary>
 
+<details>
+    <summary><h2>실시_2회</h2></summary>
+
+## 
 ### ♠ 작업형1.py
 - 1) 데이터 프레임 정렬
     - df.sort_value(by= '열이름', ascending= 오름차순)
