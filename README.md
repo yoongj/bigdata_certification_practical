@@ -77,4 +77,21 @@
     - df.sort_value(by= '열이름', ascending= 오름차순)
     - df.sort_index
 
-- 2) 
+- 2) 통계값
+    - 평균값 : mean()
+    - 중앙값 : median()
+    - 표준편차 : std()
+
+- 3) 연산자 사용
+    - or 연산자, | 연산자
+    - df[(df['households']<dead_1st) | (df['households']>dead_3rd)]
+    - 에러에 따라 다르게 사용
+
+
+### ♠ 작업형2.py
+- 데이터 확인 (info)
+- 결측치 x
+- object 타입 변수 인코딩 (OrdinalEncoder)
+- model_selection.train_test_split
+- fit & score
+- score: 0.6654545454545454
