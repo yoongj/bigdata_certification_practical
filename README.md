@@ -69,7 +69,7 @@
 
 
 <details>
-    <summary><h2>실시_2회</h2></summary>
+    <summary><h2>실기_2회</h2></summary>
 
 ## 
 ### ♠ 작업형1.py
@@ -95,3 +95,26 @@
 - model_selection.train_test_split
 - fit & score
 - score: 0.6654545454545454
+</details>
+
+
+
+
+<details>
+    <summary><h2>실기_3회</h2></summary>
+
+## 
+### ♠ 작업형1.py
+- 문제 1
+    - 결측값 제거 : dropna(axis= 0) # 행제거
+    - 데이터프레임 인덱스 : reset_index(inplace= True, drop= True) # 기존 인덱스가 열 값으로 들어옴.
+- 문제 3
+    - 결측치 갯수 : df.isna().sum()
+    - 가장 많은/적은 갯수를 가진 인덱스 : .idxmax() / .idxmin()
+
+
+### ♠ 작업형2.py
+- OrdinalEncoder 인자 외우기 
+(참고) https://data-yun.tistory.com/entry/Python-LabelEncoder-VS-OrdinalEncoder 
+- 형변환 : astype(int) == astype('int64')
+- 클래스 별 예측 확률 : model.predict_proba(test_x)

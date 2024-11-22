@@ -78,8 +78,12 @@ df= pd.read_csv('titanic_url.csv', index_col= 0)
 #     print(df[df[i].values==''])
 # 없음
 
-null_sum= df.isna().sum()
-null_max= max(df.isna().sum())
-print(null_max)
-print(null_sum[null_sum==null_max].index[0])
-# 아래 4줄 다시
+
+# # 아래 4줄 다시
+# null_sum= df.isna().sum()
+# null_max= max(df.isna().sum())
+# print(null_max)
+# print(null_sum[null_sum==null_max].index[0])
+
+
+print(df.isna().sum().idxmax())
