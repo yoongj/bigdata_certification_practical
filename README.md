@@ -118,3 +118,26 @@
 (참고) https://data-yun.tistory.com/entry/Python-LabelEncoder-VS-OrdinalEncoder 
 - 형변환 : astype(int) == astype('int64')
 - 클래스 별 예측 확률 : model.predict_proba(test_x)
+</details>
+
+
+
+
+<details>
+    <summary><h2>실기_4회</h2></summary>
+   
+## 
+### ♠ 작업형1.py
+- 문제 1
+    - describe()['25%'] == quantile(0.25)
+    - describe()['75%'] == quantile(0.75)
+
+- 문제 3
+    - df['col'].dropna  (x)
+    - df.dropna(subset= ['col'])  (o)
+    : 'col'열에서 NaN인 값인 행을 제거
+
+### ♠ 작업형2.py
+- y= train['result']
+- X= train.drop('result', axis= 1) # axis= 1 : 열 기준 제거
+</details>
