@@ -141,3 +141,48 @@
 - y= train['result']
 - X= train.drop('result', axis= 1) # axis= 1 : 열 기준 제거
 </details>
+
+
+
+
+<details>
+    <summary><h2>실기_5회</h2></summary>
+   
+## 
+### ♠ 작업형1.py
+- 문제 1
+    - 특정 열에서 결측치를 가진 행 drop : df.dropna(subset=['col'])
+    - 하지만, 결측치가 아닌 특정 값을 가진 행 drop은? : df[df['col']!= 'vaule']
+    > 쉽게 생각하기..!
+
+- 문제 2
+    - 제곱 : a**2
+
+- 문제 3
+    - 그룹화 : df.groupby('col').sum()  (sum 외에도 mean, median, count, min/max, var, std 등 가능)
+    - 그룹화 다중 통계량 : df.groupby('col').agg(['mean', 'var'])
+
+### ♠ 작업형2.py
+- object 컬럼
+    - LabelEncoder
+        - 타겟값(y)을 대상으로 함
+        - 따라서 1차원만 입력으로 받음
+        - int형으로 반환
+    - OrdinalEncoder
+        - 독립변수(x)를 대상으로 함
+        - 따라서 2차원 배열을 입력으로 받음
+        - float형으로 반환  
+    => OrdinalEncoder().fit_transform(train[['col1','col2']]).**astype(int)**
+
+- validation 셋 분리해서 성능확인
+    - sklearn.model_selection.train_test_split() 사용
+
+- 여러 모델 비교
+    - 분류 (Classifier)
+        - sklearn.ensemble.RandomForestClassifier
+        - sklearn.linear_model.LogisticRegres**sion**
+        - xgboost.XGBClassifier
+    - 회귀 (Regressor)
+        - sklearn.ensemble.RandomForestRegressor
+        - sklearn.linear_model.LinearRegres**sion**
+        - xgboost.XGBRegressor
