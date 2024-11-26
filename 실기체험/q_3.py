@@ -7,13 +7,14 @@ titanic= pd.read_csv('titanic_url.csv')
 
 ##### 1) #####
 from scipy.stats import chi2_contingency
-# # print(titanic.columns)
-# ct= pd.crosstab(titanic['Sex'],titanic['Survived'])
-# # print(ct)
+# print(titanic.columns)
+ct= pd.crosstab(titanic['Sex'],titanic['Survived'])
+# print(ct)
 
-# chi= chi2_contingency(ct)
-# print(f"{chi[0]:.4f}")
-# print(round(chi[0],3))
+chi= chi2_contingency(ct)
+print(f"{chi[0]:.4f}")
+print(round(chi[0],3))
+# 답: 260.717
 
 
 ##### 2) #####
@@ -28,18 +29,22 @@ y= titanic['Survived']
 # X['Sex']= [1 if i == 'male' else 0 for i in X['Sex']]
 # X['Sex'] = X['Sex'].apply(lambda x: 1 if x == 'male' else 0)
 X.loc[:,'Sex']= [1 if i == 'male' else 0 for i in X['Sex']]
-print(X)
-print(y)
+# print(X)
+# print(y)
 
-model= LogisticRegression()
+model= LogisticRegression(penalty=None)
 model.fit(X,y)
-print(model.coef_)
+# print(model.coef_)
 print(round(model.coef_[0][2], 3))
 print(f"{model.coef_[0][2]:.3f}")
 print(model.score(X,y))
+# -0.186  (x)
+# -0.201  (o)
 
 
 ##### 3) #####
 import numpy as np
 print(np.exp(model.coef_[0][1]))
+# 0.709  (x)
+# 0.702  (O)
 

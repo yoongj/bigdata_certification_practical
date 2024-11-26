@@ -58,6 +58,7 @@
     - X.loc[:,'Sex']= [1 if x=='male' else 0 for x in X['Sex']]
     - model= LogisticRegression
     - model.coef_[0] : 독립변수별 계수
+    - penalty 인자 : None 처리
 
 - 3) 오즈비
     - np.exp(model.coef_[0][1])
@@ -186,3 +187,4 @@
         - sklearn.ensemble.RandomForestRegressor
         - sklearn.linear_model.LinearRegres**sion**
         - xgboost.XGBRegressor
+</details>
