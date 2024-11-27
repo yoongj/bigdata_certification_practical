@@ -188,3 +188,24 @@
         - sklearn.linear_model.LinearRegres**sion**
         - xgboost.XGBRegressor
 </details>
+
+
+
+
+<details>
+    <summary><h2>실기_6회</h2></summary>
+   
+## 
+### ♠ 변형.py
+- 제 1유형
+    - 문제 1
+        - df.groupby('col1').mean()  # 각 열의 평균
+        - df.gruouby('col1')['col2'].mean()  # col2 열의 평균
+        - df.groupby(['col1', 'col2']).mean()  # 그룹화
+    - 문제 2
+        - df.groupby(['col']).count() == df['col'].value_counts()
+    - 문제 3
+        - df[df['col'].**isin**(['v1','v2','v3'])]['사기']  # T/F로 반환
+- 제 2유형
+    - encoder.classes_  # 라벨인코딩 된 문자열의 리스트, 인덱스로 인코딩됨
+    - encoder.inverse_transform(pred)  # 라벨인코딩의 디코딩
