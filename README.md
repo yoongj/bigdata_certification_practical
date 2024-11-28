@@ -205,7 +205,7 @@
     - 문제 2
         - df.groupby(['col']).count() == df['col'].value_counts()
     - 문제 3
-        - df[df['col'].**isin**(['v1','v2','v3'])]['사기']  # T/F로 반환
+        - df[df['col1'].**isin**(['v1','v2','v3'])]['col2']  # T/F로 반환
 - 제 2유형
     - le.classes_  # LabelEncoder 변환된 문자열의 리스트, 인덱스로 인코딩됨
     - oe.categories_  # OrdinalEncoder로 변환된 문자열 리스트
