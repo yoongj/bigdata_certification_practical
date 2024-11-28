@@ -119,16 +119,16 @@ test= test.drop('ID', axis= 1)
 train_y= train['General_Health']
 train_x= train.drop(['ID','General_Health'], axis= 1)
 
-# print(train_x)
-# print(train_y)
-# print(test)
+# print(train_x)  # (11230,18)
+# print(train_y)  # (11230,1)
+# print(test)     # (4813,18)
 
 from sklearn.preprocessing import LabelEncoder
 
 y_le= LabelEncoder()
 train_y= y_le.fit_transform(train_y)
 y_class= y_le.classes_
-print(y_le.classes_)
+# print(y_le.classes_)
 # print(train_y)
 
 
@@ -154,25 +154,58 @@ test[obj_cols]= oe.transform(test[obj_cols]).astype(int)
 
 
 # 스케일링? > x
+# print(train_x.info())
+# print(train_y)
+# print(test.info())
 # print(train_x.describe())
+# print(train_y.describe())
 # print(test.describe())
 
 
 
+# 스플릿
+from sklearn.model_selection import train_test_split
+train_x, valid_x, train_y, valid_y= train_test_split(train_x, train_y, test_size= 0.2,
+                                                     stratify= train_y)
+
+
 # 모델링
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, f1_score
 
 rf= RandomForestClassifier()
 rf.fit(train_x, train_y)
 
+# score= rf.score(valid_x, valid_y)
+# score= confusion_matrix(valid_y, rf.predict(valid_x))
+score= f1_score(valid_y, rf.predict(valid_x), average= 'micro')
+# print(score)
+# 0.5587711487088157
+
 pred= rf.predict(test)
-# pred= [y_class[i] for i in pred]
-pred= oe.inverse_transform(pred)
+pred= [y_class[i] for i in pred]
 # print(len(pred))
 
 pred_df= pd.DataFrame({'ID': test_id,
               'General_Health': pred})
 
-pred_df.to_csv('pred.csv', index= False)
+# pred_df.to_csv('pred.csv', index= False)
+# print(pd.read_csv('pred.csv'))
 
-print(pd.read_csv('pred.csv'))
+
+
+
+
+"""
+작업 3유형 :
+A 도시의 남성 600명과 여성 550명이 있다. 
+남성들 중 흡연자 비율은 0.2이며 여성들 중 흡연자 비율은 0.26이다.     
+남성과 여성 간에 흡연 여부에 따른 인구 비율이 다른지 확인하고 싶다. 
+유의 수준 0.05하 귀무가설에 대해 기각 / 채택 여부와 p-value값을 각각 출력하라
+"""
+
+num_men= 600
+num_women= 550
+
+smoke_women= 550*0.26
+print(smoke_women)

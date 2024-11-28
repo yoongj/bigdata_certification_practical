@@ -209,4 +209,7 @@
 - 제 2유형
     - le.classes_  # LabelEncoder 변환된 문자열의 리스트, 인덱스로 인코딩됨
     - oe.categories_  # OrdinalEncoder로 변환된 문자열 리스트
-    - le.inverse_transform(pred)  # 라벨인코딩의 디코딩
+    - ~~le.inverse_transform(pred)  # 라벨인코딩의 디코딩~~
+    - train_x, test_x, train_y, test_y = train_test_split()  # 순서!!
+    - sklearn.metrics.f1_score(true, pred)  # f1_score 외에도 accuracy_score, precision_score, recall_score 등 가능
+</details>
