@@ -134,8 +134,8 @@
     - describe()['75%'] == quantile(0.75)
 
 - 문제 3
-    - df['col'].dropna  (x)
-    - df.dropna(subset= ['col'])  (o)
+    - df['col'].dropna  ❌
+    - df.dropna(subset= ['col'])  ⭕️
     : 'col'열에서 NaN인 값인 행을 제거
 
 ### ♠ 작업형2.py
