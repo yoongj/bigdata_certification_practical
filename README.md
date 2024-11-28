@@ -207,5 +207,6 @@
     - 문제 3
         - df[df['col'].**isin**(['v1','v2','v3'])]['사기']  # T/F로 반환
 - 제 2유형
-    - encoder.classes_  # 라벨인코딩 된 문자열의 리스트, 인덱스로 인코딩됨
-    - encoder.inverse_transform(pred)  # 라벨인코딩의 디코딩
+    - le.classes_  # LabelEncoder 변환된 문자열의 리스트, 인덱스로 인코딩됨
+    - oe.categories_  # OrdinalEncoder로 변환된 문자열 리스트
+    - le.inverse_transform(pred)  # 라벨인코딩의 디코딩
