@@ -213,3 +213,44 @@
     - train_x, test_x, train_y, test_y = train_test_split()  # 순서!!
     - sklearn.metrics.f1_score(true, pred)  # f1_score 외에도 accuracy_score, precision_score, recall_score 등 가능
 </details>
+
+
+
+<details>
+    <summary><h2>제 3유형 연습</h2></summary>
+   
+## 
+### 가설 검정 방법
+1) 가설 세우기
+2) 정규성 검정하기 (shapiro-wilk 검정)
+3) 가설 검정하기
+4) 통계량 및 유의확률 구하기
+5) 유의수준과 유희확률을 비교하여 기각/채택 결정
+
+### 정규성 검정
+- 정규성인지 아닌지에 따라 사용하는 검정방법이 다르다.
+- scipy.stats.shapiro(df.col)
+- pvalue 값에 따라, '정규성을 따른다'는 귀무가설을 기각/채택
+
+### 단일 표본 (집단의 평균 vs 특정 값)
+- 정규성 O : t-검정 
+    - scipy.stats.ttest_1samp(df['col'], **popmean**= value, alternative= 'two-sided')
+    - alternative : 대립가설과의 비교 ((default)인지 아닌지: two-sided, (왼쪽기준) 더큰가 : greater, 더작은가: less)
+
+- 정규성 X : 윌콕슨 부호검정
+    - scipy.stats.wilcoxon(df['col']-value, alternative= 'greater')
+    - alternative 는 위와 동일
+
+### 대응 표본 (동일한 모집단으로부터 추출된 두 집단간의 비교)
+- t-검정
+    - scipy.stats.ttest_rel(df.col1, df.col2, alternative= 'less')
+- 대응표본의 경우에는 등분산 검정을 실시 x, shapiro검정 필요 x (같은 모집단으로부터 추출되기 때문에 분산은 당연히 같다.)
+- 만약, 같은 모집단에서 추출된게 아니라면, 두 값의 차이값의 정규성을 확인하여 비정규성을 띌시 위와 동일하게 wilcoxon 사용
+
+### 독립 표본 (독립된 두 집단, 등분산 여부에 따라 통계량 계산식이 다름)
+- 두 독립된 그룹이 서로 같은 분산을 가지는가
+    - scipy.stats.levene  or  scipy.stats.bartlett
+- t-검정
+    - scipy.stats.ttest_ind()
+
+
